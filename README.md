@@ -1,34 +1,28 @@
-# Pylot MVC (beta)
-Pylot MVC is a lightweight MVC framework built in Python leveraging flask.
+TO DO:
 
-This framework is currently still in development. If you want to play around with it read on or clone the stable version!
+FRONTEND:
+	-create main page that handles login/reg
+	-create dashboard that:
+		-displays the logged in user's name
+		-has a logout link
+		-displays a list of users who have poked you, ordered by # of pokes
 
-# Installation
-
-First make sure you have pip installed. If you don't have it installed there are great instructions here: https://pip.pypa.io/en/latest/installing.html
-
-Next install virtualenv
-```
-sudo pip install virtualenv
-```
-
-Clone pylot
-```
-PARENT
-git clone -b stable https://github.com/Ketul-Patel/Pylot.git
-```
-
-cd into pylot (or rename and cd in) and source the setup file
-```
-cd Pylot
-. setup
-FOLLOW DIRECTIONS OUTLINED BY SETUP!
-note: there might be some fixes needed here, feel free to send them as FAQ's for this Readme (see below)
-```
-
-Now you can start your development server like so:
-```
-python manage.py runserver
-```
-
-Enjoy! More details/features coming soon!
+		-has a menu of all OTHER users (not yourself), which contains:
+			-alias
+			-email
+			-history of how many times each user has been poked
+			-an option to poke each user
+DATABASE:
+	-should track registered users as well as logins
+	-tracks pokes recieved and given
+MODELS:
+	-Queries to handle:
+		-Registration
+		-Login
+		-Pokes
+		-Logout
+ROUTES:
+	-Main page
+	-Add a user (register)
+	-Login a user
+	-Add a poke

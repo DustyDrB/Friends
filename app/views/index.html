@@ -3,6 +3,25 @@
     <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
   </head>
   <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
+	<div class="container">
+		<h1>Welcome!</h1>
+		<form action="/register" method="post">
+			<h2>Register</h2>
+			Name: <input type="text" name="name">
+			Alias: <input type="text" name="alias">
+			Email: <input type="text" name="email">
+			Password: <input type="text" name="password">
+			<p>*Password should be at least 8 characters</p>
+			Confirm PW: <input type="text" name="confirm">
+			Date of Birth: <input type="date" name="birthday">
+			<input type="submit" value="Register">
+		</form>
+		<form action="/login" method="post">
+			<h2>Login</h2>
+			Email: <input type="text" name="email">
+			Password: <input type="text" name="password">
+			<input type="submit" value="Login">
+		</form>
+	</div>
   </body>
 </html>
