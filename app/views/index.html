@@ -7,6 +7,11 @@
 		<h1>Welcome!</h1>
 		<form action="/register" method="post">
 			<h2>Register</h2>
+			<div class="errors">
+				{%for error in errors:%}
+					<p>{{error}}</p>
+				{%endfor%}
+			</div>
 			Name: <input type="text" name="name">
 			Alias: <input type="text" name="alias">
 			Email: <input type="text" name="email">

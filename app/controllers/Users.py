@@ -1,40 +1,36 @@
-"""
-    Sample Controller File
 
-    A Controller should be in charge of responding to a request.
-    Load models to interact with the database and load views to render them to the client.
-
-    Create a controller using this template
-"""
 from system.core.controller import *
 
-class Welcome(Controller):
+class Users(Controller):
     def __init__(self, action):
-        super(Welcome, self).__init__(action)
-        """
-            This is an example of loading a model.
-            Every controller has access to the load_model method.
-        """
-        self.load_model('WelcomeModel')
+        super(Users, self).__init__(action)
+        self.load_model('User')
+        self.load_model('Poke')
         self.db = self._app.db
+    
+    def register(self):
+        is_valid = self.models['User'].validation(request.form)
+        return self.handle_login_reg(is_valid)
 
-        """
-        
-        This is an example of a controller method that will load a view for the client 
+    def handle_login_reg(self, result):
+        if type(result) == list:
+            session['errors'] = result
+            return redirect('/')
+        self.current_user(result)
+        return redirect('/dashboard')
 
-        """
-   
-    def index(self):
-        """
-        A loaded model is accessible through the models attribute 
-        self.models['WelcomeModel'].get_users()
-        
-        self.models['WelcomeModel'].add_message()
-        # messages = self.models['WelcomeModel'].grab_messages()
-        # user = self.models['WelcomeModel'].get_user()
-        # to pass information on to a view it's the same as it was with Flask
-        
-        # return self.load_view('index.html', messages=messages, user=user)
-        """
-        return self.load_view('index.html')
+    def current_user(self, is_valid):
+        session['user'] = is_valid
+        return
+    
+    def login(self):
+        login_request = self.models['User'].login(request.form)
+        return self.handle_login_reg(login_request)
+    
+    def logout(self):
+        session.clear()
+        return redirect('/')
 
+    def dashboard(self):
+        users = self.models['User'].get_all_other_users(session['user']['id'])
+        return self.load_view('pokes.html', users=users)

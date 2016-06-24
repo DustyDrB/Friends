@@ -1,12 +1,15 @@
 
 from system.core.router import routes
 
-routes['default_controller'] = 'Users'
+routes['GET']['/'] = 'Welcome#index'
+routes['GET']['/login_reg'] = 'Welcome#login_reg'
+
 routes['POST']['/register'] = 'Users#register'
+routes['GET']['/dashboard'] ='Users#dashboard'
 routes['POST']['/login'] = 'Users#login'
 routes['GET']['/logout'] = 'Users#logout'
 
-routes['POST']['/pokes'] = 'Pokes#create'
+routes['POST']['/users/<int:id>/create'] = 'Pokes#create'
 """
     You can add routes and specify their handlers as follows:
 

@@ -1,40 +1,22 @@
-"""
-    Sample Controller File
 
-    A Controller should be in charge of responding to a request.
-    Load models to interact with the database and load views to render them to the client.
-
-    Create a controller using this template
-"""
 from system.core.controller import *
 
-class Welcome(Controller):
+class Pokes(Controller):
     def __init__(self, action):
-        super(Welcome, self).__init__(action)
-        """
-            This is an example of loading a model.
-            Every controller has access to the load_model method.
-        """
-        self.load_model('WelcomeModel')
+        super(Pokes, self).__init__(action)
+
+        self.load_model('Poke')
         self.db = self._app.db
 
-        """
-        
-        This is an example of a controller method that will load a view for the client 
+    def create(self):
+        if not 'count' in session:
+            session['count'] = 0
+        session['count'] += 1
+        self.models['Poke'].create_poke(request.form, session['user']['id'])
+        return self.load_view('pokes.html', count=session['count'])
 
-        """
-   
-    def index(self):
-        """
-        A loaded model is accessible through the models attribute 
-        self.models['WelcomeModel'].get_users()
-        
-        self.models['WelcomeModel'].add_message()
-        # messages = self.models['WelcomeModel'].grab_messages()
-        # user = self.models['WelcomeModel'].get_user()
-        # to pass information on to a view it's the same as it was with Flask
-        
-        # return self.load_view('index.html', messages=messages, user=user)
-        """
-        return self.load_view('index.html')
 
+    # def count(self, id):
+    #     if not 'count' in session:
+    #         session['count'] = 0
+    #     poke = self.models['Poke'].get_poke_by_user_id(session['user']['id'])
